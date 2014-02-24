@@ -8,8 +8,8 @@ var KEYDATA;
 jQuery(document)
     .on("keydown", jQKeyStroke )
     .on("keypress", jQKeyStroke )
-    .on("keystroke", function(event, data) {
-        KEYDATA = data;
+    .on("keystroke", function(event) {
+        KEYDATA = event;
     });
 
 module( "Character Keys" );
@@ -24,7 +24,6 @@ test( "Hit Letter a once", function() {
     
     equal( KEYDATA.keyType, "CHARACTER_KEY", "Correct key type assigned" );
     equal( KEYDATA.char, "a", "Corrent character code converted" );
-
 });
 
 test( "Hit CTRL+V", function() {
@@ -53,7 +52,6 @@ test( "Hit F01 once", function() {
     
     equal( KEYDATA.keyType, "FUNCTION_KEY", "Correct key type assigned" );
     equal( KEYDATA.char, null, "Corrent character code converted" );
-
 });
 
 

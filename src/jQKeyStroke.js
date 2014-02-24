@@ -2,7 +2,7 @@
 var jQKeyStroke = function(event) {
 
     var keyData = { 
-        event     : event,
+        origin    : event,
         which     : event.which,
         altKey    : event.altKey || false,
         ctrlKey   : event.ctrlKey || false,
@@ -50,5 +50,6 @@ var jQKeyStroke = function(event) {
         keyData.keyType = "CHARACTER_KEY";
     }
 
-    jQuery(event.target).trigger("keystroke", keyData);
+    var keystroke = jQuery.Event("keystroke", keyData );
+    jQuery(event.target).trigger(keystroke);
 }
