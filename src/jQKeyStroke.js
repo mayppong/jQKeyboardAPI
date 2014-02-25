@@ -13,6 +13,7 @@ var jQKeyStroke = function(event) {
     
     // Process keydown event.
     // Pressing CTRL+ or ALT+ combination will causes the key to fire only on keydown and NOT keypress
+    // If it's a character key (with or without shift) skip over and move on to keypess.
     if( event.type === "keydown" )
     {
         // Logic
@@ -20,17 +21,16 @@ var jQKeyStroke = function(event) {
                 ( 48 <= keyData.which && keyData.which <=  90) ||
                 ( 96 <= keyData.which && keyData.which <= 111) ||
                 (186 <= keyData.which && keyData.which <= 222),
-            isModifierKey = jQuery.inArray( keyData.which, [ 16, 17, 18 ] ) !== -1,
-            isCommandKey  = keyData.which <= 46;
-            isFunctionKey = 112 <= keyData.which && keyData.which <= 123;
-        
-        if( isCharKey ) { 
-            return; 
-        }
+            isCommandKey  = keyData.which <= 46,
+            isFunctionKey = 112 <= keyData.which && keyData.which <= 123,
+            isShortcut    = isCharKey && (event.altKey || event.ctrlKey);
         
         switch( true ) { 
-            case isModifierKey:
-                keyData.keyType = "MODIFIER_KEY"; 
+            case isCharKey:
+                return;
+                break;
+            case isShortcut:
+                keyData.keyType = "SHORTCUT_KEY"; 
                 break;
             case isCommandKey:
                 keyData.keyType = "COMMAND_KEY";
