@@ -16,21 +16,19 @@ var jQKeyStroke = function(event) {
     if( event.type === "keydown" )
     {
         // Logic
-        var isModifierKey =  keyData.ctrlKey || keyData.altKey,
-            isCharKey     = 
+        var isCharKey     = 
                 ( 48 <= keyData.which && keyData.which <=  90) ||
                 ( 96 <= keyData.which && keyData.which <= 111) ||
                 (186 <= keyData.which && keyData.which <= 222),
-            isCommandKey = keyData.which <= 46;
-            isFunctionKey = 112 <= keyData.which && keyData.which <= 123,    
-            isIgnoreKey  = jQuery.inArray( keyData.which, [ 16, 17, 18 ] ) !== -1; // ALT, CTRL and SHIFT
+            isModifierKey = jQuery.inArray( keyData.which, [ 16, 17, 18 ] ) !== -1,
+            isCommandKey  = keyData.which <= 46;
+            isFunctionKey = 112 <= keyData.which && keyData.which <= 123;
         
-        // End function if ignored key or normal character key is pressed to move on to keypress event
-        if( isIgnoreKey || (!isModifierKey && isCharKey) ) { 
+        if( isCharKey ) { 
             return; 
         }
         
-        switch( true ) {
+        switch( true ) { 
             case isModifierKey:
                 keyData.keyType = "MODIFIER_KEY"; 
                 break;
@@ -41,11 +39,9 @@ var jQKeyStroke = function(event) {
                 keyData.keyType = "FUNCTION_KEY";
                 break;
         }
-
     }
     // Processs keypress event.
-    else if( event.type === "keypress" )
-    {
+    else if( event.type === "keypress" ) {
         keyData.char    = String.fromCharCode( keyData.which ); 
         keyData.keyType = "CHARACTER_KEY";
     }
