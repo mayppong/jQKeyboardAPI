@@ -1,4 +1,8 @@
-
+/**
+ * May Pongpitpitak
+ * http://www.mayppong.com
+ * jQKeyStroke
+ */
 var jQKeyStroke = function(event) {
 
     var keyData = { 
